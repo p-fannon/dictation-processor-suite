@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using DictationProcessorLib;
 
 namespace DictationProcessorSvc
 {
@@ -6,7 +8,14 @@ namespace DictationProcessorSvc
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var fileSystemWatcher = new FileSystemWatcher("/Users/fannonp/Documents/dotnet-core-mac-linux-getting-started/m4/demos/uploads", "metadata.json");
+            fileSystemWatcher.IncludeSubdirectories = true;
+            while (true) 
+            {
+                var result = fileSystemWatcher.WaitForChanged(WatcherChangeTypes.Created);
+                Console.WriteLine($"New Metadata file {result.Name}");
+            }
+            
         }
     }
 }
