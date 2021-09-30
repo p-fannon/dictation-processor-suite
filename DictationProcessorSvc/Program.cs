@@ -14,6 +14,10 @@ namespace DictationProcessorSvc
             {
                 var result = fileSystemWatcher.WaitForChanged(WatcherChangeTypes.Created);
                 Console.WriteLine($"New Metadata file {result.Name}");
+                var fullMetadataFilePath = Path.Combine("/Users/fannonp/Documents/dotnet-core-mac-linux-getting-started/m4/demos/uploads", result.Name);
+                var subfolder = Path.GetDirectoryName(fullMetadataFilePath);
+                var processor = new UploadProcessor(subfolder);
+                processor.Process();
             }
             
         }
